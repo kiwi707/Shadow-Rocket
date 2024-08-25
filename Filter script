@@ -1,0 +1,63 @@
+// 自定义字符，可以根据需要进行更改
+let customCharStart = "★";  // 节点名前缀的自定义字符
+let customCharEnd = "ᵀᶻ";    // 节点名后缀的自定义字符
+
+// 检查节点名是否不包含设定关键词，此项主要用于过滤机场无效节点
+if (!/官网|账号|有效期|群|到期|刷新|超时|订阅|建议|免费/i.test($server.title)) {
+
+    // 删除节点名中不需要的字段
+    $server.title = $server.title.replace(/普通|【推荐】|国内中转|江苏|联通|中转|广州|移动|上海|\*|-|厦门|[0-9]|_/g, '');;
+
+    // 去除不需要的字符和词语，并替换为任意其他字符
+    $server.title = $server.title.replace(/鸡/g, '专线'); // 示例：节点名中的“鸡”统一替换为“专线”，可根据自己需求更改
+
+    // 根据匹配的地区名插入对应的国旗 emoji 到开头
+    let flag = '🌐 ';  // 默认值
+    if (/美国|美國|US|洛杉矶|西雅图|States|American/.test($server.title)) {
+        flag = '🇺🇸 ';
+    } else if (/日本|JP|Japan|东京/.test($server.title)) {
+        flag = '🇯🇵 ';
+    } else if (/KR|Korea|KOR|首尔|韩|韓/.test($server.title)) {
+        flag = '🇰🇷 ';
+    } else if (/德国|DE|Frank/.test($server.title)) {
+        flag = '🇩🇪 ';
+    } else if (/IN|Mum/.test($server.title)) {
+        flag = '🇮🇳 ';
+    } else if (/英国|GB|London/.test($server.title)) {
+        flag = '🇬🇧 ';
+    } else if (/台|TW|Taiwan/.test($server.title)) {
+        flag = '🇨🇳 ';
+    } else if (/港|HK|Hong/.test($server.title)) {
+        flag = '🇭🇰 ';
+    } else if (/新加坡|狮城|SG|Singapore/.test($server.title)) {
+        flag = '🇸🇬 ';
+    } else if (/爱尔兰|Dublin|IE/.test($server.title)) {
+        flag = '🇮🇪 ';
+    } else if (/SE|瑞典/.test($server.title)) {
+        flag = '🇸🇪 ';
+    } else if (/CA|加拿大|Mon/.test($server.title)) {
+        flag = '🇨🇦 ';
+    } else if (/澳大利亚|AU|Sydney/.test($server.title)) {
+        flag = '🇦🇺 ';
+    } else if (/土耳其/.test($server.title)) {
+        flag = '🇹🇷 ';
+    } else if (/巴黎|Paris|FR/.test($server.title)) {
+        flag = '🇫🇷 ';
+    }
+
+    // 去掉最后一个字符（如果需要的话，可以启用这部分代码）
+    // $server.title = $server.title.slice(0, -1);
+
+    // 去掉第一个字符（如果需要的话，可以启用这部分代码）
+    // $server.title = $server.title.slice(1);
+
+    // 在处理后的节点名前加上自定义字符
+    $server.title = customCharStart + $server.title;
+
+    // 添加国旗 emoji 和自定义后缀字符
+    $server.title = flag + $server.title + customCharEnd;
+
+    return true;
+}
+
+return false;
