@@ -1,3 +1,4 @@
+//使用方法：复制脚本，粘贴到shadow rocket订阅页面的过滤里面
 // 自定义字符，可以根据需要进行更改
 let customCharStart = "★";  // 节点名前缀的自定义字符
 let customCharEnd = "ᵀᶻ";    // 节点名后缀的自定义字符
