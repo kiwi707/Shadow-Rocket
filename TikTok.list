@@ -1,17 +1,42 @@
-# NAME: TikTok
+# NAME: PornHub
 
-DOMAIN,p16-tiktokcdn-com.akamaized.net
-DOMAIN-SUFFIX,byteoversea.com
-DOMAIN-SUFFIX,ibytedtos.com
-DOMAIN-SUFFIX,ibyteimg.com
-DOMAIN-SUFFIX,ipstatp.com
-DOMAIN-SUFFIX,muscdn.com
-DOMAIN-SUFFIX,musical.ly
-DOMAIN-SUFFIX,sgpstatp.com
-DOMAIN-SUFFIX,snssdk.com
-DOMAIN-SUFFIX,tik-tokapi.com
-DOMAIN-SUFFIX,tiktok.com
-DOMAIN-SUFFIX,tiktokcdn.com
-DOMAIN-SUFFIX,tiktokv.com
-DOMAIN-KEYWORD,-tiktokcdn-com
-USER-AGENT,TikTok*
+# Pornhub 相关的 IP 地址范围
+IP-CIDR,66.254.114.0/24,no-resolve
+IP-CIDR,66.254.109.0/24,no-resolve
+IP-CIDR,66.254.110.0/24,no-resolve
+IP-CIDR,66.254.116.0/24,no-resolve
+IP-CIDR,66.254.121.0/24,no-resolve
+IP-CIDR,66.254.122.0/24,no-resolve
+IP-CIDR,66.254.123.0/24,no-resolve
+IP-CIDR,68.169.100.0/24,no-resolve
+IP-CIDR,68.169.110.0/24,no-resolve
+IP-CIDR,68.169.119.0/24,no-resolve
+IP-CIDR,78.140.128.0/24,no-resolve
+IP-CIDR,78.140.150.0/24,no-resolve
+IP-CIDR,78.140.151.0/24,no-resolve
+IP-CIDR,93.174.80.0/24,no-resolve
+IP-CIDR,93.174.81.0/24,no-resolve
+IP-CIDR,93.174.82.0/24,no-resolve
+IP-CIDR,93.174.83.0/24,no-resolve
+IP-CIDR,93.174.88.0/24,no-resolve
+IP-CIDR,93.174.89.0/24,no-resolve
+IP-CIDR,95.211.230.0/24,no-resolve
+IP-CIDR,103.6.238.0/24,no-resolve
+IP-CIDR,109.71.162.0/24,no-resolve
+IP-CIDR,178.162.135.0/24,no-resolve
+IP-CIDR,178.162.139.0/24,no-resolve
+IP-CIDR,185.38.13.0/24,no-resolve
+
+# Pornhub 相关的域名
+DOMAIN-SUFFIX,pornhub.com
+DOMAIN-SUFFIX,pornhub.net
+DOMAIN-SUFFIX,pornhub.org
+DOMAIN-SUFFIX,pornhub.co
+DOMAIN-SUFFIX,pornhub.xxx
+DOMAIN-SUFFIX,pornhub.pro
+DOMAIN-SUFFIX,pornhub.to
+DOMAIN-SUFFIX,pornhub.app
+DOMAIN-SUFFIX,pornhub.vip
+DOMAIN-SUFFIX,pornhub.mobi
+DOMAIN-SUFFIX,pornhub.cx
+DOMAIN-SUFFIX,pornhub.tv
