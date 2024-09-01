@@ -1,12 +1,38 @@
-#!name=TiKTok-JP
-#!desc=TikTok 解锁
-#!system=ios
-[URL Rewrite]
-(?<=_region=)CN(?=&) JP 307
-(?<=&mcc_mnc=)4 2 307
-^(https?:\/\/(tnc|dm)[\w-]+\.\w+\.com\/.+)(\?)(.+) $1$3 302
-(^https?:\/\/*\.\w{4}okv.com\/.+&.+)(\d{2}\.3\.\d)(.+) $118.0$3 302
+IP-CIDR,34.0.0.0/16,no-resolve
+IP-CIDR,34.96.0.0/13,no-resolve
+IP-CIDR,34.120.0.0/14,no-resolve
+IP-CIDR,34.124.0.0/15,no-resolve
+IP-CIDR,34.128.0.0/16,no-resolve
+IP-CIDR,34.168.0.0/13,no-resolve
+IP-CIDR,35.156.0.0/14,no-resolve
+IP-CIDR,35.160.0.0/13,no-resolve
+IP-CIDR,35.180.0.0/16,no-resolve
+IP-CIDR,35.188.0.0/16,no-resolve
+IP-CIDR,35.192.0.0/16,no-resolve
+IP-CIDR,52.0.0.0/11,no-resolve
+IP-CIDR,52.56.0.0/14,no-resolve
+IP-CIDR,52.80.0.0/12,no-resolve
+IP-CIDR,54.0.0.0/12,no-resolve
+IP-CIDR,54.128.0.0/17,no-resolve
+IP-CIDR,54.192.0.0/16,no-resolve
+IP-CIDR,54.224.0.0/16,no-resolve
+IP-CIDR,54.248.0.0/16,no-resolve
+IP-CIDR,54.250.0.0/16,no-resolve
+IP-CIDR,54.251.0.0/16,no-resolve
+IP-CIDR,67.215.0.0/16,no-resolve
+IP-CIDR,67.218.0.0/16,no-resolve
+IP-CIDR,104.197.0.0/16,no-resolve
+IP-CIDR,104.199.0.0/16,no-resolve
+IP-CIDR,104.199.128.0/17,no-resolve
+IP-CIDR,108.174.0.0/16,no-resolve
 
-[MITM]
-hostname = *.tiktokv.com,*.byteoversea.com,*.tik-tokapi.com
-
+DOMAIN-SUFFIX,talkatone.com
+DOMAIN-SUFFIX,talkatone.net
+DOMAIN-SUFFIX,talkatone.org
+DOMAIN-SUFFIX,talkatone.co
+DOMAIN-SUFFIX,talkatone.app
+DOMAIN-SUFFIX,talkatone.io
+DOMAIN-SUFFIX,talkatone.us
+DOMAIN-SUFFIX,talkatone.tv
+DOMAIN-SUFFIX,talkatone.mobi
+DOMAIN-SUFFIX,talkatone.cx
