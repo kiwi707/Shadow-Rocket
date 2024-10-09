@@ -1,0 +1,76 @@
+let customCharStart = "◎";
+let customCharEnd = "ᵀᶻ";
+
+// 关键词和对应的指定名称
+const keywordsToNames = {
+    "美|西雅图": "🇺🇸US",
+    "港": "🇭🇰HK",
+    "新": "🇸🇬SG",
+    "台": "🇨🇳TW",
+    "日|东京": "🇯🇵JP",
+
+    // 继续添加其他关键词和对应名称
+};
+
+// 要过滤掉的关键词
+const filterKeywords = [
+    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "过期", "电报", "会员", "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "流量", "更新", "点外", "重置", "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"
+
+// 不做处理但要保留的关键词
+const skipKeywords = [
+    "忽略", "无效服务器", "暂停服务",  // 添加您希望保留下来的关键词
+];
+
+// 检查是否包含过滤关键词
+for (const filter of filterKeywords) {
+    if (new RegExp(filter, 'i').test($server.title)) {
+        return false;  // 如果匹配过滤关键词，直接返回 false
+    }
+}
+
+// 检查是否包含不处理关键词
+let matchedSkipKeyword = false;
+for (const skip of skipKeywords) {
+    if (new RegExp(skip, 'i').test($server.title)) {
+        matchedSkipKeyword = true;  // 标记为匹配了不处理关键词
+        break;  // 找到后直接跳出循环
+    }
+}
+
+let newTitle = $server.title;  // 初始值为原名称
+let matchedReplacementKeyword = false;
+
+// 遍历关键词，如果匹配则替换名称
+for (const keyword in keywordsToNames) {
+    if (new RegExp(keyword, 'i').test($server.title)) {
+        newTitle = keywordsToNames[keyword];  // 替换为对应名称
+        matchedReplacementKeyword = true;  // 标记为匹配了替换关键词
+        break;  // 找到后直接跳出循环
+    }
+}
+
+// 最终处理名称
+if (matchedReplacementKeyword && matchedSkipKeyword) {
+    // 如果同时匹配到替换关键词和不处理关键词，不进行替换，保留原名称
+    newTitle = $server.title;  // 保留原名称
+} else if (matchedReplacementKeyword) {
+    // 如果只匹配到替换关键词，进行替换
+    // newTitle 已经在上面被赋值为指定名称
+}
+
+// 添加前缀和后缀字符
+newTitle = customCharStart + newTitle + customCharEnd;
+
+// 更新服务器标题
+$server.title = newTitle;
+
+// 处理重复计数
+const map = globalThis.map || (globalThis.map = {});
+if (!map[$server.title]) {
+    map[$server.title] = 1;
+} else {
+    const idx = ++map[$server.title];
+    $server.title = `${$server.title} - ${idx}`;
+}
+
+return true;
