@@ -8,13 +8,12 @@ const keywordsToNames = {
     "新": "🇸🇬SG",
     "台": "🇨🇳TW",
     "日|东京": "🇯🇵JP",
-
     // 继续添加其他关键词和对应名称
 };
 
 // 要过滤掉的关键词
 const filterKeywords = [
-    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "过期", "电报", "会员", "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "流量", "更新", "点外", "重置", "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"
+    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "过期", "电报", "会员", "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "流量", "更新", "点外", "重置", "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"  // 添加您想要过滤掉的关键词
 ];
 
 // 不做处理但要保留的关键词
@@ -59,19 +58,22 @@ if (matchedReplacementKeyword && matchedSkipKeyword) {
     // newTitle 已经在上面被赋值为指定名称
 }
 
-// 处理重复计数
-const map = globalThis.map || (globalThis.map = {});
-if (!map[newTitle]) {
-    map[newTitle] = 1;
-} else {
-    const idx = ++map[newTitle];
-    newTitle = `${newTitle}-${idx}`;
-}
-
-// 添加前缀和后缀字符
-newTitle = customCharStart + newTitle + customCharEnd;
+// 添加前缀字符
+newTitle = customCharStart + newTitle;
 
 // 更新服务器标题
 $server.title = newTitle;
+
+// 处理重复计数
+const map = globalThis.map || (globalThis.map = {});
+if (!map[$server.title]) {
+    map[$server.title] = 1;
+} else {
+    const idx = ++map[$server.title];
+    $server.title = `${$server.title}-${idx}`;
+}
+
+// 添加后缀字符
+$server.title += customCharEnd;
 
 return true;
