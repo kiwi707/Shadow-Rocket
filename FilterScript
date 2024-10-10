@@ -9,7 +9,7 @@ const keywordsToNames = {
     "日|东京": "🇯🇵JP",
     "韩国": "🇰🇷KR",
     "土耳其": "🇹🇷TR",
-    "爱尔兰": "🇮🇪IRL",
+    "爱尔兰|IE": "🇮🇪IRL",
     "澳|AU": "🇦🇺AU",
     "法国|Paris|FR|巴黎": "🇫🇷FRA",
     "SE|瑞典": "🇸🇪SE",
