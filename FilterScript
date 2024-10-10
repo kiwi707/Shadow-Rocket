@@ -19,29 +19,23 @@ const keywordsToNames = {
     "加拿大|CA": "🇨🇦CA",
 };
 
-const filterKeywords = [
-    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "电报", "会员", 
+const filterKeywords = ["广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "电报", "会员", 
     "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "更新", "点外", "重置", "免流", 
-    "Days", "Date", "Expire", "Premium", "建议", "免费"
-];
+    "Days", "Date", "Expire", "Premium", "建议", "免费"];
 
-const skipKeywords = ["GPT","想要保留的关键词2"];
+const skipKeywords = ["GPT", "想要保留的关键词2"];
 
-for (const filter of filterKeywords) {
-    if (new RegExp(filter, 'i').test($server.title)) return false;
-}
+if (filterKeywords.some(kw => new RegExp(kw, 'i').test($server.title))) return false;
 
-let preservedParts = [], titleWithoutSkipKeywords = $server.title;
+let preservedParts = [], newTitle = $server.title;
 
-for (const skip of skipKeywords) {
-    const match = $server.title.match(new RegExp(skip, 'i'));
+skipKeywords.forEach(kw => {
+    let match = newTitle.match(new RegExp(kw, 'i'));
     if (match) {
         preservedParts.push(match[0]);
-        titleWithoutSkipKeywords = titleWithoutSkipKeywords.replace(match[0], '');
+        newTitle = newTitle.replace(match[0], '');
     }
-}
-
-let newTitle = titleWithoutSkipKeywords;
+});
 
 for (const keyword in keywordsToNames) {
     if (new RegExp(keyword, 'i').test(newTitle)) {
@@ -57,15 +51,12 @@ const map = globalThis.map || (globalThis.map = {});
 if (!map[newTitle]) {
     map[newTitle] = 1;
 } else {
-    map[newTitle]++;
-    newTitle = `${newTitle}-${map[newTitle]}`;
+    newTitle = `${newTitle}-${++map[newTitle]}`;
 }
 
 newTitle += customCharEnd;
 
-if (preservedParts.length > 0) {
-    newTitle += ' ' + preservedParts.join(' ');
-}
+if (preservedParts.length) newTitle += ' ' + preservedParts.join(' ');
 
 $server.title = newTitle;
 
