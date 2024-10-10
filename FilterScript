@@ -1,7 +1,6 @@
 let customCharStart = "◎";
 let customCharEnd = "ᵀᶻ";
 
-// 关键词和对应的指定名称
 const keywordsToNames = {
     "美|西雅图": "🇺🇸US",
     "港": "🇭🇰HK",
@@ -11,85 +10,63 @@ const keywordsToNames = {
     "韩国": "🇰🇷KR",
     "土耳其": "🇹🇷TR",
     "爱尔兰": "🇮🇪IRL",
-    "澳": "🇦🇺AU",
-    "法国|巴黎": "🇫🇷FRA",
-    // 继续添加其他关键词和对应名称
+    "澳|AU": "🇦🇺AU",
+    "法国|Paris|FR|巴黎": "🇫🇷FRA",
+    "SE|瑞典": "🇸🇪SE",
+    "德国|DE": "🇩🇪DE",
+    "英国|GB": "🇬🇧GB",
+    "IN|印度": "🇮🇳IN",
+    "加拿大|CA": "🇨🇦CA",
 };
 
-// 要过滤掉的关键词
 const filterKeywords = [
-    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "过期", "电报", "会员", "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "流量", "更新", "点外", "重置", "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"  // 添加您想要过滤掉的关键词
+    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "电报", "会员", 
+    "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "更新", "点外", "重置", "免流", 
+    "Days", "Date", "Expire", "Premium", "建议", "免费"
 ];
 
-// 不做处理但要保留的关键词
-const skipKeywords = [
-    "GPT",  // 添加您希望保留下来的关键词
-];
+const skipKeywords = ["想要保留的关键词1","想要保留的关键词2"];
 
-// 检查是否包含过滤关键词
 for (const filter of filterKeywords) {
-    if (new RegExp(filter, 'i').test($server.title)) {
-        return false;  // 如果匹配过滤关键词，直接返回 false
-    }
+    if (new RegExp(filter, 'i').test($server.title)) return false;
 }
 
-// 保留的关键词 (如 GPT)
-let preservedParts = [];
-let titleWithoutSkipKeywords = $server.title;
+let preservedParts = [], titleWithoutSkipKeywords = $server.title;
 
-// 检查是否包含不处理关键词
 for (const skip of skipKeywords) {
-    const skipRegex = new RegExp(skip, 'i');
-    if (skipRegex.test($server.title)) {
-        const match = $server.title.match(skipRegex);
-        if (match) {
-            preservedParts.push(match[0]);  // 保留匹配到的关键词
-            titleWithoutSkipKeywords = titleWithoutSkipKeywords.replace(skipRegex, '');  // 去除不处理关键词后的部分
-        }
+    const match = $server.title.match(new RegExp(skip, 'i'));
+    if (match) {
+        preservedParts.push(match[0]);
+        titleWithoutSkipKeywords = titleWithoutSkipKeywords.replace(match[0], '');
     }
 }
 
-let newTitle = titleWithoutSkipKeywords;  // 初始值为去除保留关键词后的标题部分
-let matchedReplacementKeyword = false;
+let newTitle = titleWithoutSkipKeywords;
 
-// 遍历关键词，如果匹配则替换名称
 for (const keyword in keywordsToNames) {
     if (new RegExp(keyword, 'i').test(newTitle)) {
-        newTitle = keywordsToNames[keyword];  // 替换为对应名称
-        matchedReplacementKeyword = true;  // 标记为匹配了替换关键词
-        break;  // 找到后直接跳出循环
+        newTitle = keywordsToNames[keyword];
+        break;
     }
 }
 
-// 最终处理名称
-if (matchedReplacementKeyword) {
-    // 如果只匹配到替换关键词，进行替换
-    // newTitle 已经在上面被赋值为指定名称
-} else {
-    newTitle = $server.title;  // 保留原名称
-}
-
-// 添加前缀字符
 newTitle = customCharStart + newTitle;
 
-// 处理重复计数
 const map = globalThis.map || (globalThis.map = {});
+
 if (!map[newTitle]) {
     map[newTitle] = 1;
 } else {
-    const idx = ++map[newTitle];
-    newTitle = `${newTitle}-${idx}`;
+    map[newTitle]++;
+    newTitle = `${newTitle}-${map[newTitle]}`;
 }
 
-// 添加后缀字符
 newTitle += customCharEnd;
 
-// 将保留的关键词添加到标题后面
 if (preservedParts.length > 0) {
-    newTitle = newTitle + ' ' + preservedParts.join(' ');  // 将保留的部分拼接到新标题的后面
+    newTitle += ' ' + preservedParts.join(' ');
 }
 
-// 更新服务器标题
 $server.title = newTitle;
 
 return true;
