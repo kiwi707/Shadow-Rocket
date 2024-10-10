@@ -2,13 +2,13 @@ let customCharStart = "◎";
 let customCharEnd = "ᵀᶻ";
 
 const keywordsToNames = {
-    "美|西雅图": "🇺🇸US",
-    "港": "🇭🇰HK",
-    "新": "🇸🇬SG",
-    "台": "🇨🇳TW",
-    "日|东京": "🇯🇵JP",
-    "韩国": "🇰🇷KR",
-    "土耳其": "🇹🇷TR",
+    "美|西雅图|US": "🇺🇸US",
+    "港|HK|HongKong": "🇭🇰HK",
+    "新|SG|狮城": "🇸🇬SG",
+    "台|TW|Taiwan": "🇨🇳TW",
+    "日|东京|JP": "🇯🇵JP",
+    "韩国|首尔|KR": "🇰🇷KR",
+    "土耳其|TR": "🇹🇷TR",
     "爱尔兰|IE": "🇮🇪IRL",
     "澳|AU": "🇦🇺AU",
     "法国|Paris|FR|巴黎": "🇫🇷FRA",
@@ -25,7 +25,7 @@ const filterKeywords = [
     "Days", "Date", "Expire", "Premium", "建议", "免费"
 ];
 
-const skipKeywords = ["想要保留的关键词1","想要保留的关键词2"];
+const skipKeywords = ["GPT","想要保留的关键词2"];
 
 for (const filter of filterKeywords) {
     if (new RegExp(filter, 'i').test($server.title)) return false;
