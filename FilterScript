@@ -1,6 +1,7 @@
 let customCharStart = "◎";
 let customCharEnd = "ᵀᶻ";
 
+// 国家和地区与标识符的映射
 const keywordsToNames = {
     "美国|美國|US|洛杉矶|西雅图|纽约|芝加哥|States|American": "🇺🇸US",
     "港|香港|HK|Hong": "🇭🇰HK",
@@ -12,10 +13,10 @@ const keywordsToNames = {
     "爱尔兰|都柏林|IE": "🇮🇪IRL",
     "澳|悉尼|墨尔本|布里斯班|AU": "🇦🇺AU",
     "法国|巴黎|里昂|马赛|FR": "🇫🇷FRA",
-    "SE|瑞典|斯德哥尔摩|哥德堡": "🇸🇪SE",
+    "瑞典|SE|斯德哥尔摩|哥德堡": "🇸🇪SE",
     "德国|法兰克福|柏林|慕尼黑|DE": "🇩🇪DE",
-    "英国|伦敦|曼彻斯特|伯明翰|GB": "🇬🇧GB",
-    "IN|印度|孟买|德里|班加罗尔": "🇮🇳IN",
+    "英国|伦敦|曼彻斯特|伯明翰|GB|UK": "🇬🇧UK",
+    "印度|孟买|德里|班加罗尔|IN": "🇮🇳IN",
     "加拿大|多伦多|温哥华|蒙特利尔|CA": "🇨🇦CA",
     "西班牙|马德里|巴塞罗那|ES": "🇪🇸ES",
     "意大利|罗马|米兰|那不勒斯|IT": "🇮🇹IT",
@@ -29,16 +30,23 @@ const keywordsToNames = {
     "波兰|华沙|克拉科夫|PL": "🇵🇱PL"
 };
 
-const filterKeywords = ["广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", "到期", "刷新", "剩余", "电报", "会员", 
-    "解锁", "流量", "超时", "订阅", "佣金", "免翻", "节点", "下载", "更新", "点外", "重置", "免流", 
-    "Days", "Date", "Expire", "Premium", "建议", "免费"];
+// 过滤关键词
+const filterKeywords = [
+    "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", 
+    "到期", "刷新", "剩余", "电报", "会员", "解锁", "流量", "超时", 
+    "订阅", "佣金", "免翻", "节点", "下载", "更新", "点外", "重置", 
+    "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"
+];
 
+// 跳过关键词
 const skipKeywords = ["GPT", "想要保留的关键词2"];
 
+// 检查是否包含过滤关键词
 if (filterKeywords.some(kw => new RegExp(kw, 'i').test($server.title))) return false;
 
 let preservedParts = [], newTitle = $server.title;
 
+// 处理跳过关键词，保留并移除
 skipKeywords.forEach(kw => {
     let match = newTitle.match(new RegExp(kw, 'i'));
     if (match) {
@@ -47,6 +55,7 @@ skipKeywords.forEach(kw => {
     }
 });
 
+// 匹配关键词并更新标题
 for (const keyword in keywordsToNames) {
     if (new RegExp(keyword, 'i').test(newTitle)) {
         newTitle = keywordsToNames[keyword];
@@ -54,20 +63,25 @@ for (const keyword in keywordsToNames) {
     }
 }
 
+// 添加自定义字符
 newTitle = customCharStart + newTitle;
 
 const map = globalThis.map || (globalThis.map = {});
 
+// 处理标题重复的情况
 if (!map[newTitle]) {
     map[newTitle] = 1;
 } else {
     newTitle = `${newTitle}-${++map[newTitle]}`;
 }
 
+// 添加结束字符
 newTitle += customCharEnd;
 
+// 添加保留的部分
 if (preservedParts.length) newTitle += ' ' + preservedParts.join(' ');
 
+// 更新服务器标题
 $server.title = newTitle;
 
 return true;
