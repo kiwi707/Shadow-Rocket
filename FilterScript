@@ -1,64 +1,94 @@
-let customCharStart = "➠";
-let customCharEnd = "ᵀᶻ";
+let customCharStart = "➥";
+let customCharEnd = "ᵐᵗ";
 
-// 国家和地区与标识符的映射
+// 国家和地区与标识符的映射（包括中文和英文名）
 const keywordsToNames = {
-    "美国|美國|US|洛杉矶|Los Angeles|西雅图|Seattle|Atlanta|纽约|New York|芝加哥|Chicago|States|American": "🇺🇸US",
+    "美国|美國|US|洛杉矶|洛杉磯|西雅图|纽约|芝加哥|Atlanta|States|American|Los Angeles|Seattle|New York|Chicago": "🇺🇸US",
     "港|香港|HK|Hong Kong": "🇭🇰HK",
     "新加坡|狮城|SG|Singapore": "🇸🇬SG",
-    "台|台湾|台北|Taipei|高雄|Kaohsiung|TW|Taiwan": "🇨🇳TW",
-    "日|东京|Tokyo|大阪|Osaka|名古屋|Nagoya|JP|Japan": "🇯🇵JP",
-    "韩国|首尔|Seoul|釜山|Busan|KR": "🇰🇷KR",
-    "土耳其|伊斯坦布尔|Istanbul|安卡拉|Ankara|TR": "🇹🇷TR",
-    "爱尔兰|都柏林|Dublin|IE": "🇮🇪IRL",
-    "澳|悉尼|Sydney|墨尔本|Melbourne|布里斯班|Brisbane|AU": "🇦🇺AU",
-    "法国|巴黎|Paris|里昂|Lyon|马赛|Marseille|FR": "🇫🇷FRA",
-    "瑞典|斯德哥尔摩|Stockholm|哥德堡|Gothenburg|SE": "🇸🇪SE",
-    "德国|法兰克福|Frankfurt|柏林|Berlin|慕尼黑|Munich|DE": "🇩🇪DE",
-    "英国|伦敦|London|曼彻斯特|Manchester|伯明翰|Birmingham|GB": "🇬🇧GB",
-    "印度|孟买|Mumbai|德里|Delhi|班加罗尔|Bangalore|IN": "🇮🇳IN",
-    "加拿大|多伦多|Toronto|温哥华|Vancouver|蒙特利尔|Montreal|CA": "🇨🇦CA",
-    "西班牙|马德里|Madrid|巴塞罗那|Barcelona|ES": "🇪🇸ES",
-    "意大利|罗马|Rome|米兰|Milan|那不勒斯|Naples|IT": "🇮🇹IT",
-    "荷兰|阿姆斯特丹|Amsterdam|鹿特丹|Rotterdam|NL": "🇳🇱NL",
-    "瑞士|苏黎世|Zurich|日内瓦|Geneva|CH": "🇨🇭CH",
-    "俄罗斯|莫斯科|Moscow|圣彼得堡|Saint Petersburg|RU": "🇷🇺RU",
-    "巴西|圣保罗|Sao Paulo|里约热内卢|Rio de Janeiro|BR": "🇧🇷BR",
-    "南非|约翰内斯堡|Johannesburg|开普敦|Cape Town|ZA": "🇿🇦ZA",
-    "墨西哥|墨西哥城|Mexico City|瓜达拉哈拉|Guadalajara|MX": "🇲🇽MX",
-    "阿根廷|布宜诺斯艾利斯|Buenos Aires|AR": "🇦🇷AR",
-    "波兰|华沙|Warsaw|克拉科夫|Krakow|PL": "🇵🇱PL",
-    "泰国|曼谷|Bangkok|清迈|Chiang Mai|TH|Thailand": "🇹🇭TH",
-    "马来西亚|吉隆坡|Kuala Lumpur|槟城|Penang|MY|Malaysia": "🇲🇾MY",
-    "越南|河内|Hanoi|胡志明|Ho Chi Minh|VN|Vietnam": "🇻🇳VN"
+    "台|台湾|台北|高雄|TW|Taiwan|Taipei|Kaohsiung": "🇨🇳TW",
+    "日|东京|大阪|名古屋|JP|Tokyo|Japan|Osaka|Nagoya": "🇯🇵JP",
+    "韩国|首尔|釜山|KR|Korea|Seoul|Busan": "🇰🇷KR",
+    "土耳其|伊斯坦布尔|安卡拉|TR|Turkey|Istanbul|Ankara": "🇹🇷TR",
+    "爱尔兰|都柏林|IE|Ireland|Dublin": "🇮🇪IRL",
+    "澳|悉尼|墨尔本|布里斯班|AU|Australia|Sydney|Melbourne|Brisbane": "🇦🇺AU",
+    "法国|巴黎|里昂|马赛|FR|France|Paris|Lyon|Marseille": "🇫🇷FRA",
+    "瑞典|斯德哥尔摩|哥德堡|SE|Sweden|Stockholm|Gothenburg": "🇸🇪SE",
+    "德国|法兰克福|柏林|慕尼黑|DE|Germany|Frankfurt|Berlin|Munich": "🇩🇪DE",
+    "英国|伦敦|曼彻斯特|伯明翰|GB|UK|United Kingdom|London|Manchester|Birmingham": "🇬🇧GB",
+    "印度|孟买|德里|班加罗尔|IN|India|Mumbai|Delhi|Bangalore": "🇮🇳IN",
+    "加拿大|多伦多|温哥华|蒙特利尔|CA|Canada|Toronto|Vancouver|Montreal": "🇨🇦CA",
+    "西班牙|马德里|巴塞罗那|ES|Spain|Madrid|Barcelona": "🇪🇸ES",
+    "意大利|罗马|米兰|那不勒斯|IT|Italy|Rome|Milan|Naples": "🇮🇹IT",
+    "荷兰|阿姆斯特丹|鹿特丹|NL|Netherlands|Amsterdam|Rotterdam": "🇳🇱NL",
+    "瑞士|苏黎世|日内瓦|CH|Switzerland|Zurich|Geneva": "🇨🇭CH",
+    "俄罗斯|莫斯科|圣彼得堡|RU|Russia|Moscow|Saint Petersburg": "🇷🇺RU",
+    "巴西|圣保罗|里约热内卢|BR|Brazil|São Paulo|Rio de Janeiro": "🇧🇷BR",
+    "南非|约翰内斯堡|开普敦|ZA|South Africa|Johannesburg|Cape Town": "🇿🇦ZA",
+    "墨西哥|墨西哥城|瓜达拉哈拉|MX|Mexico|Mexico City|Guadalajara": "🇲🇽MX",
+    "阿根廷|布宜诺斯艾利斯|AR|Argentina|Buenos Aires": "🇦🇷AR",
+    "波兰|华沙|克拉科夫|PL|Poland|Warsaw|Krakow": "🇵🇱PL",
+    "泰国|曼谷|清迈|TH|Thailand|Bangkok|Chiang Mai": "🇹🇭TH",
+    "马来西亚|吉隆坡|槟城|MY|Malaysia|Kuala Lumpur|Penang": "🇲🇾MY",
+    "越南|河内|胡志明|VN|Vietnam|Hanoi|Ho Chi Minh": "🇻🇳VN",
+    "菲律宾|马尼拉|PH|Philippines|Manila": "🇵🇭PH",
+    "埃及|开罗|EG|Egypt|Cairo": "🇪🇬EG",
+    "沙特|利雅得|吉达|SA|Saudi Arabia|Riyadh|Jeddah": "🇸🇦SA",
+    "阿联酋|迪拜|阿布扎比|AE|UAE|Dubai|Abu Dhabi": "🇦🇪AE",
+    "挪威|奥斯陆|NO|Norway|Oslo": "🇳🇴NO",
+    "芬兰|赫尔辛基|FI|Finland|Helsinki": "🇫🇮FI",
+    "奥地利|维也纳|AT|Austria|Vienna": "🇦🇹AT",
+    "希腊|雅典|GR|Greece|Athens": "🇬🇷GR",
+    "匈牙利|布达佩斯|HU|Hungary|Budapest": "🇭🇺HU",
+    "捷克|布拉格|CZ|Czech|Prague": "🇨🇿CZ",
+    "新西兰|奥克兰|NZ|New Zealand|Auckland": "🇳🇿NZ",
+    "尼泊尔|加德满都|NP|Nepal|Kathmandu": "🇳🇵NP",
+    "葡萄牙|里斯本|PT|Portugal|Lisbon": "🇵🇹PT",
+    "巴基斯坦|伊斯兰堡|PK|Pakistan|Islamabad": "🇵🇰PK",
+    "伊朗|德黑兰|IR|Iran|Tehran": "🇮🇷IR",
+    "伊拉克|巴格达|IQ|Iraq|Baghdad": "🇮🇶IQ",
+    "阿尔及利亚|阿尔及尔|DZ|Algeria|Algiers": "🇩🇿DZ",
+    "摩洛哥|拉巴特|MA|Morocco|Rabat": "🇲🇦MA",
+    "尼日利亚|拉各斯|NG|Nigeria|Lagos": "🇳🇬NG",
+    "智利|圣地亚哥|CL|Chile|Santiago": "🇨🇱CL",
+    "秘鲁|利马|PE|Peru|Lima": "🇵🇪PE",
+    "哥伦比亚|波哥大|CO|Colombia|Bogotá": "🇨🇴CO"
 };
 
-// 过滤关键词
+// 过滤关键词，防止无效或广告节点
 const filterKeywords = [
     "广告", "过期", "无效", "测试", "备用", "官网", "账号", "有效期", "群", 
     "到期", "刷新", "剩余", "电报", "会员", "解锁", "流量", "超时", 
     "订阅", "佣金", "免翻", "节点", "下载", "更新", "点外", "重置", 
-    "免流", "Days", "Date", "Expire", "Premium", "建议", "免费"
+    "免流", "Days", "Date", "Expire", "Premium", "建议", "免费",
+    "套餐", "到期", "有效", "剩余", "版本", "已用", "过期", "失联", 
+    "测试", "官方", "网址", "备用", "群", "TEST", "客服", "网站", 
+    "获取", "订阅", "流量", "机场", "下次", "官址", "联系", "邮箱", 
+    "工单", "学术", "USE", "USED", "TOTAL", "EXPIRE", "EMAIL"
 ];
 
-// 跳过关键词
-const skipKeywords = ["GPT", "想要保留的关键词2"];
+// 定义保留的关键词及其替换词
+const preserveKeywordsMap = {
+    "HY2": "GPT",
+    "保留的关键词2": "替换词2"
+};
 
 // 检查是否包含过滤关键词
 if (filterKeywords.some(kw => new RegExp(kw, 'i').test($server.title))) return false;
 
+// 保留跳过的关键词部分
 let preservedParts = [], newTitle = $server.title;
 
-// 处理跳过关键词，保留并移除
-skipKeywords.forEach(kw => {
+// 提取并移除跳过的关键词部分
+for (const kw in preserveKeywordsMap) {
     let match = newTitle.match(new RegExp(kw, 'i'));
     if (match) {
-        preservedParts.push(match[0]);
-        newTitle = newTitle.replace(match[0], '');
+        preservedParts.push(preserveKeywordsMap[kw]); // 使用替换词
+        newTitle = newTitle.replace(match[0], ''); // 去除已匹配的关键词部分
     }
-});
+}
 
-// 匹配关键词并更新标题
+// 匹配地区关键词，并用标识符替换节点名称
 for (const keyword in keywordsToNames) {
     if (new RegExp(keyword, 'i').test(newTitle)) {
         newTitle = keywordsToNames[keyword];
@@ -66,22 +96,22 @@ for (const keyword in keywordsToNames) {
     }
 }
 
-// 添加自定义字符
+// 添加自定义前缀字符
 newTitle = customCharStart + newTitle;
 
 const map = globalThis.map || (globalThis.map = {});
 
-// 处理标题重复的情况
+// 防止节点标题重复
 if (!map[newTitle]) {
     map[newTitle] = 1;
 } else {
     newTitle = `${newTitle}-${++map[newTitle]}`;
 }
 
-// 添加结束字符
+// 添加自定义后缀字符
 newTitle += customCharEnd;
 
-// 添加保留的部分
+// 将保留的部分重新加到标题上
 if (preservedParts.length) newTitle += ' ' + preservedParts.join(' ');
 
 // 更新服务器标题
