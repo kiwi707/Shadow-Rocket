@@ -1,0 +1,21 @@
+DOMAIN-SUFFIX,soulapp.cn
+DOMAIN-SUFFIX,soulapp.me
+DOMAIN-SUFFIX,soulapp.com
+DOMAIN-SUFFIX,soulzone.cn
+DOMAIN-SUFFIX,soulsns.com
+DOMAIN-SUFFIX,soulcdn.cn
+DOMAIN-SUFFIX,cdn.soulapp.cn
+DOMAIN-SUFFIX,cdn.soulapp.me
+DOMAIN-SUFFIX,soulapk.com
+DOMAIN-SUFFIX,api.soulapp.me
+DOMAIN-SUFFIX,web.soulapp.cn
+DOMAIN-SUFFIX,web.soulapp.me
+DOMAIN-KEYWORD,soul
+USER-AGENT,Soul*
+
+# IP-CIDR
+IP-CIDR,101.71.120.0/24,no-resolve
+IP-CIDR,101.71.121.0/24,no-resolve
+IP-CIDR,101.71.122.0/24,no-resolve
+IP-CIDR,47.246.43.0/24,no-resolve
+IP-CIDR,47.246.44.0/24,no-resolve
