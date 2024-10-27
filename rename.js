@@ -15,7 +15,8 @@ function operator(proxies = [], targetPlatform, context) {
     clear: false, // 是否清理乱名
     blockquic: false, // QUIC 阻止
     addFlag: false, // 是否添加国旗
-    filterInvalid: false // 是否过滤无效节点
+    filterInvalid: false, // 是否过滤无效节点
+    formatKeywords: {} // 格式化关键词及其新名字
   };
 
   // 3. 解析 URL 参数
@@ -63,6 +64,13 @@ function operator(proxies = [], targetPlatform, context) {
       case 'filterInvalid':
         defaultConfig.filterInvalid = value === 'true'; // 是否过滤无效节点
         break;
+      case 'formatKeywords':
+        try {
+          defaultConfig.formatKeywords = JSON.parse(value); // 解析格式化关键词
+        } catch (e) {
+          console.error('格式化关键词解析失败:', e);
+        }
+        break;
       default:
         break;
     }
@@ -76,54 +84,49 @@ function operator(proxies = [], targetPlatform, context) {
     'V': 'W', // 这里添加需要替换的保留关键词
   };
 
-  // 8. 定义格式化节点名的关键词和指定的新名字
-  const formatKeywords = {
-    '香港': '🇭🇰HK',
-  };
-
-  // 9. 用于跟踪同一名称的计数
+  // 8. 用于跟踪同一名称的计数
   const nameCounts = {};
 
-  // 10. 定义上标字符数组
+  // 9. 定义上标字符数组
   const superscripts = ['¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹', '¹⁰', '¹¹', '¹²', '¹³', '¹⁴', '¹⁵', '¹⁶', '¹⁷'];
 
-  // 11. 遍历所有节点
+  // 10. 遍历所有节点
   for (const server of proxies) {
-    // 12. 过滤无效节点
+    // 11. 过滤无效节点
     if (defaultConfig.filterInvalid && filterKeywords.some(keyword => server.name.includes(keyword))) {
       server.disable = true; // 过滤掉包含关键词的节点
       continue; // 继续下一个节点
     }
 
-    // 13. 如果需要清理乱名
+    // 12. 如果需要清理乱名
     if (defaultConfig.clear && !server.name.match(/[\u4e00-\u9fa5]/)) {
       server.disable = true; // 清理乱名的逻辑
       continue;
     }
 
-    // 14. 替换保留关键词
+    // 13. 替换保留关键词
     for (const [keyword, replacement] of Object.entries(retainKeywordsMap)) {
       if (server.name.includes(keyword)) {
         server.name = server.name.replace(new RegExp(keyword, 'g'), replacement); // 替换所有匹配的关键词
       }
     }
 
-    // 15. 检查并格式化节点名
-    for (const [keyword, newName] of Object.entries(formatKeywords)) {
+    // 14. 检查并格式化节点名
+    for (const [keyword, newName] of Object.entries(defaultConfig.formatKeywords)) {
       if (server.name.includes(keyword)) {
-        // 16. 更新计数并生成唯一后缀
+        // 15. 更新计数并生成唯一后缀
         if (!nameCounts[newName]) {
           nameCounts[newName] = 1; // 初始化计数
         } else {
           nameCounts[newName]++; // 增加计数
         }
 
-        // 17. 添加前缀和上标后缀
+        // 16. 添加前缀和上标后缀
         const exponent = nameCounts[newName] <= superscripts.length ? superscripts[nameCounts[newName] - 1] : `(${nameCounts[newName]})`; // 超出范围时用普通括号表示
         
         // 添加国旗 emoji
         if (defaultConfig.addFlag) {
-          server.name = `${defaultConfig.prefix}${newName}${exponent}${defaultConfig.suffix} ${formatKeywords['香港']}`; // 假设只有香港有国旗
+          server.name = `${defaultConfig.prefix}${newName}${exponent}${defaultConfig.suffix} 🇭🇰`; // 假设只有香港有国旗
         } else {
           server.name = `${defaultConfig.prefix}${newName}${exponent}${defaultConfig.suffix}`;
         }
@@ -132,7 +135,7 @@ function operator(proxies = [], targetPlatform, context) {
       }
     }
 
-    // 18. 如果没有匹配的关键词且有新的名字，则使用传入的新名字
+    // 17. 如果没有匹配的关键词且有新的名字，则使用传入的新名字
     if (!server.name.includes(defaultConfig.prefix) && defaultConfig.blkey) {
       for (const bl of defaultConfig.blkey) {
         const [original, replacement] = bl.split('>');
@@ -146,7 +149,7 @@ function operator(proxies = [], targetPlatform, context) {
       server.name = `${defaultConfig.prefix}${server.name}${defaultConfig.suffix}`; // 默认处理
     }
 
-    // 19. 确保节点名称唯一
+    // 18. 确保节点名称唯一
     let newName = server.name;
     let originalName = newName;
     let count = 1;
@@ -159,7 +162,7 @@ function operator(proxies = [], targetPlatform, context) {
     server.name = newName; // 最终重命名
   }
 
-  // 20. 输出日志
+  // 19. 输出日志
   console.log('修改日志:', JSON.stringify(log, null, 2));
 
   return proxies; // 返回处理后的节点
