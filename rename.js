@@ -36,44 +36,47 @@ function operator(proxies = [], targetPlatform, context) {
   // 7. 定义上标字符数组
   const superscripts = ['¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹', '¹⁰', '¹¹', '¹²', '¹³', '¹⁴', '¹⁵', '¹⁶', '¹⁷'];
 
-  // 8. 遍历所有节点
+  // 8. 确定输出语言（默认为中文）
+  const outputLanguage = context.outputLanguage || 'zh';
+
+  // 9. 遍历所有节点
   for (const server of proxies) {
-    // 9. 过滤无效节点
+    // 10. 过滤无效节点
     if (filterKeywords.some(keyword => server.name.includes(keyword))) {
       server.disable = true; // 过滤掉包含关键词的节点
     } else {
-      // 10. 替换保留关键词
+      // 11. 替换保留关键词
       for (const [keyword, replacement] of Object.entries(retainKeywordsMap)) {
         if (server.name.includes(keyword)) {
           server.name = server.name.replace(new RegExp(keyword, 'g'), replacement); // 替换所有匹配的关键词
         }
       }
 
-      // 11. 检查并格式化节点名
+      // 12. 检查并格式化节点名
       for (const [keyword, names] of Object.entries(formatKeywords)) {
         if (server.name.includes(keyword)) {
-          // 12. 更新计数并生成唯一后缀
-          if (!nameCounts[names[context.outputLanguage]]) {
-            nameCounts[names[context.outputLanguage]] = 1; // 初始化计数
+          // 13. 更新计数并生成唯一后缀
+          if (!nameCounts[names[outputLanguage]]) {
+            nameCounts[names[outputLanguage]] = 1; // 初始化计数
           } else {
-            nameCounts[names[context.outputLanguage]]++; // 增加计数
+            nameCounts[names[outputLanguage]]++; // 增加计数
           }
 
-          // 13. 添加前缀和上标后缀
-          const exponent = nameCounts[names[context.outputLanguage]] <= superscripts.length 
-              ? superscripts[nameCounts[names[context.outputLanguage]] - 1] 
-              : `(${nameCounts[names[context.outputLanguage]]})`; // 超出范围时用普通括号表示
-          server.name = `${prefix}${names[context.outputLanguage]}${exponent}${suffix}`; // 去掉了连字符
+          // 14. 添加前缀和上标后缀
+          const exponent = nameCounts[names[outputLanguage]] <= superscripts.length 
+              ? superscripts[nameCounts[names[outputLanguage]] - 1] 
+              : `(${nameCounts[names[outputLanguage]]})`; // 超出范围时用普通括号表示
+          server.name = `${prefix}${names[outputLanguage]}${exponent}${suffix}`; // 去掉了连字符
           break; // 匹配到一个关键词后退出
         }
       }
 
-      // 14. 如果没有匹配的关键词，保留原名并添加前缀后缀
+      // 15. 如果没有匹配的关键词，保留原名并添加前缀后缀
       if (!server.name.includes(prefix)) {
         server.name = `${prefix}${server.name}${suffix}`; // 默认处理
       }
 
-      // 15. 确保节点名称唯一
+      // 16. 确保节点名称唯一
       let newName = server.name;
       let originalName = newName;
       let count = 1;
