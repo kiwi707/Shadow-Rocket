@@ -1,21 +1,3 @@
-function getUrlParams() {
-  const params = {};
-  const queryString = window.location.href.split('#')[1]; // 获取#后面的内容
-  if (queryString) {
-    const queryParts = queryString.split('&');
-    queryParts.forEach(part => {
-      const [key, value] = part.split('=');
-      params[decodeURIComponent(key)] = value ? decodeURIComponent(value) : true; // 处理没有值的参数
-    });
-  }
-  return params;
-}
-
-// 获取 URL 参数
-const urlParams = getUrlParams();
-const prefix = urlParams.prefix || '节点前缀-'; // 默认值
-const suffix = urlParams.suffix || '节点后缀'; // 默认值
-
 function operator(proxies = [], targetPlatform, context) {
   // 1. 去重功能
   const uniqueNames = new Set();
@@ -24,9 +6,9 @@ function operator(proxies = [], targetPlatform, context) {
   // 2. 定义过滤关键词
   const filterKeywords = ['无效', '失效', '过滤'];
 
-  // 3. 使用 URL 参数的前缀和后缀
-  // const prefix = urlParams.prefix || '节点前缀-'; // 已在外部获取
-  // const suffix = urlParams.suffix || '节点后缀'; // 已在外部获取
+  // 3. 添加前缀和后缀
+  const prefix = '节点前缀-'; // 可以根据条件动态设置
+  const suffix = '节点后缀'; // 可以根据条件动态设置
 
   // 4. 定义格式化节点名的关键词和指定的新名字
   const formatKeywords = {
@@ -63,7 +45,7 @@ function operator(proxies = [], targetPlatform, context) {
         }
       }
 
-      // 12. 如果没有匹配的关键词，保留原名并添加前缀后缀
+      // 12. 如果没有匹配的关键词，保留原名
       if (!server.name.includes(prefix)) {
         server.name = `${prefix}${server.name}${suffix}`; // 默认处理
       }
