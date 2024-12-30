@@ -1,21 +1,30 @@
-DOMAIN-SUFFIX,soulapp.cn
-DOMAIN-SUFFIX,soulapp.me
-DOMAIN-SUFFIX,soulapp.com
-DOMAIN-SUFFIX,soulzone.cn
-DOMAIN-SUFFIX,soulsns.com
-DOMAIN-SUFFIX,soulcdn.cn
-DOMAIN-SUFFIX,cdn.soulapp.cn
-DOMAIN-SUFFIX,cdn.soulapp.me
-DOMAIN-SUFFIX,soulapk.com
-DOMAIN-SUFFIX,api.soulapp.me
-DOMAIN-SUFFIX,web.soulapp.cn
-DOMAIN-SUFFIX,web.soulapp.me
-DOMAIN-KEYWORD,soul
-USER-AGENT,Soul*
+# Windows App Mobile 分流规则
+DOMAIN-SUFFIX,azure.com
+DOMAIN-SUFFIX,azureedge.net
+DOMAIN-SUFFIX,azurewebsites.net
+DOMAIN-SUFFIX,msidentity.com
+DOMAIN-SUFFIX,windows.net
+DOMAIN-SUFFIX,microsoft.com
+DOMAIN-SUFFIX,msftcdn.com
+DOMAIN-SUFFIX,msftconnecttest.com
+DOMAIN-SUFFIX,login.microsoftonline.com
+DOMAIN-SUFFIX,login.live.com
+DOMAIN-SUFFIX,aadcdn.msftauth.net
+DOMAIN-SUFFIX,rdgateway.microsoft.com
+DOMAIN-SUFFIX,wvd.microsoft.com
+DOMAIN-SUFFIX,rdweb.wvd.microsoft.com
+DOMAIN-SUFFIX,remoteapp.windowsazure.com
+DOMAIN-SUFFIX,portal.azure.com
+DOMAIN-SUFFIX,management.azure.com
 
-# IP-CIDR
-IP-CIDR,101.71.120.0/24,no-resolve
-IP-CIDR,101.71.121.0/24,no-resolve
-IP-CIDR,101.71.122.0/24,no-resolve
-IP-CIDR,47.246.43.0/24,no-resolve
-IP-CIDR,47.246.44.0/24,no-resolve
+# 关键字匹配
+DOMAIN-KEYWORD,rdgateway
+DOMAIN-KEYWORD,rdweb
+DOMAIN-KEYWORD,remoteapp
+DOMAIN-KEYWORD,windows
+
+# IP范围（可选，适配特定场景）
+IP-CIDR,20.190.128.0/18,no-resolve
+IP-CIDR,40.74.0.0/16,no-resolve
+IP-CIDR,104.40.0.0/13,no-resolve
+IP-CIDR,13.64.0.0/11,no-resolve
