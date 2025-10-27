@@ -1,9 +1,41 @@
+# --- imToken 主域名 ---
 DOMAIN-SUFFIX,token.im
-DOMAIN-SUFFIX,web.token.im
-DOMAIN-SUFFIX,docs.token.im
-DOMAIN-SUFFIX,support.token.im
-DOMAIN-SUFFIX,download.token.im
-DOMAIN-SUFFIX,cdn.token.im
-DOMAIN-KEYWORD,tokenlon
+DOMAIN-SUFFIX,imtoken.one
+DOMAIN-SUFFIX,imtokenwallet.com
+DOMAIN-SUFFIX,imkey.io
+DOMAIN-SUFFIX,imtoken.io
+DOMAIN-SUFFIX,imtoken.app
+DOMAIN-SUFFIX,imtoken.org
+
+# --- 关键字匹配 ---
 DOMAIN-KEYWORD,imtoken
-DOMAIN-SUFFIX,gitbook.io
+DOMAIN-KEYWORD,tokenim
+DOMAIN-KEYWORD,imkey
+DOMAIN-KEYWORD,tokenlon
+
+# --- 关联服务与子项目 ---
+DOMAIN-SUFFIX,defi.im
+DOMAIN-SUFFIX,tokenlon.com
+DOMAIN-SUFFIX,tokenlon.io
+
+# --- 区块链 API / 浏览器服务 ---
+DOMAIN-SUFFIX,etherscan.io
+DOMAIN-SUFFIX,bscscan.com
+DOMAIN-SUFFIX,oklink.com
+DOMAIN-SUFFIX,chainnode.tech
+DOMAIN-SUFFIX,blockchain.info
+DOMAIN-SUFFIX,coingecko.com
+DOMAIN-SUFFIX,coinmarketcap.com
+
+# --- 节点与 RPC 服务关键字 ---
+DOMAIN-KEYWORD,infura
+DOMAIN-KEYWORD,alchemy
+DOMAIN-KEYWORD,oklink
+DOMAIN-KEYWORD,etherscan
+DOMAIN-KEYWORD,bscscan
+
+# --- 通用容错匹配 ---
+DOMAIN-KEYWORD,rpc
+DOMAIN-KEYWORD,api
+DOMAIN-KEYWORD,node
+DOMAIN-KEYWORD,token
