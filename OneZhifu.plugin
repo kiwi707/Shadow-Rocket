@@ -1,16 +1,29 @@
 #!name = OneZhifu 总控台 V4.20
-#!desc = 修复UI统计指标修改 + 费率自动对齐。说明：如需修改余额/流水等数据，请直接编辑插件脚本开头的 CONFIG 常量。
+#!desc = 修改统计数据。点击下方“插件设置”即可通过中文面板修改数值。
 #!author = @weekin
-#!icon = https://raw.githubusercontent.com/luestr/IconSet/master/App/OneZhifu.png
-#!date = 2026-01-29
 
 [Rule]
-# 确保相关 API 走脚本逻辑
 DOMAIN-KEYWORD, supplier.onezhifu, DIRECT
 
 [Script]
-# 增加 argument 参数，并在匹配后缀加上通配符
-http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=onezhifu_core.js, requires-body=true, timeout=10, tag=OneZhifu数据修改
+# 拦截响应并读取参数
+http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=onezhifu_core.js, requires-body=true, tag=OneZhifu数据修改, argument=[total=829.41&frozen=0&locked=1000&t_ina=100&t_inc=10&t_outa=0&t_outc=0&t_comm=5&t_prof=20&y_ina=200&y_inc=20&y_comm=10&y_prof=40]
 
 [MITM]
 hostname = supplier.onezhifu.com, supplier.onezhifu.top
+
+# --- 以下定义中文面板界面 ---
+#!arguments
+total={总余额}
+frozen={冻结金额}
+locked={锁定金额}
+t_ina={今日收款金额}
+t_inc={今日收款笔数}
+t_outa={今日代付金额}
+t_outc={今日代付笔数}
+t_comm={今日下级佣金}
+t_prof={今日跑量利润}
+y_ina={昨日收款金额}
+y_inc={昨日收款笔数}
+y_comm={昨日下级佣金}
+y_prof={昨日跑量利润}
