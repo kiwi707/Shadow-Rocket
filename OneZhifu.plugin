@@ -1,0 +1,16 @@
+#!name = OneZhifu 总控台 V4.20
+#!desc = 修复UI统计指标修改 + 费率自动对齐。说明：如需修改余额/流水等数据，请直接编辑插件脚本开头的 CONFIG 常量。
+#!author = @weekin
+#!icon = https://raw.githubusercontent.com/luestr/IconSet/master/App/OneZhifu.png
+#!date = 2026-01-29
+
+[Rule]
+# 确保相关 API 走脚本逻辑
+DOMAIN-KEYWORD, supplier.onezhifu, DIRECT
+
+[Script]
+# 拦截所有 API 响应进行数据清洗
+http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=https://raw.githubusercontent.com/Loon-Script/main/onezhifu_core.js, requires-body=true, tag=OneZhifu_Data_Modifier
+
+[MITM]
+hostname = supplier.onezhifu.com, supplier.onezhifu.top
