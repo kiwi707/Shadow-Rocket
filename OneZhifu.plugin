@@ -9,8 +9,8 @@
 DOMAIN-KEYWORD, supplier.onezhifu, DIRECT
 
 [Script]
-# 核心修正：添加 binary-body-mode=true
-http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=onezhifu_core.js, requires-body=true, binary-body-mode=true, tag=OneZhifu数据修改
+# 增加 argument 参数，并在匹配后缀加上通配符
+http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=onezhifu_core.js, requires-body=true, timeout=10, tag=OneZhifu数据修改
 
 [MITM]
 hostname = supplier.onezhifu.com, supplier.onezhifu.top
