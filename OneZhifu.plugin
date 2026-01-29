@@ -9,8 +9,8 @@
 DOMAIN-KEYWORD, supplier.onezhifu, DIRECT
 
 [Script]
-# 拦截所有 API 响应进行数据清洗
-http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=https://raw.githubusercontent.com/Loon-Script/main/onezhifu_core.js, requires-body=true, tag=OneZhifu_Data_Modifier
+# 核心修正：添加 binary-body-mode=true
+http-response ^https?:\/\/supplier\.onezhifu\.(com|top)\/api\/ script-path=onezhifu_core.js, requires-body=true, binary-body-mode=true, tag=OneZhifu数据修改
 
 [MITM]
 hostname = supplier.onezhifu.com, supplier.onezhifu.top
