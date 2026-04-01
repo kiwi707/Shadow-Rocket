@@ -1,17 +1,41 @@
+# NAME: Gemini
+# AUTHOR: kiwi707
+# REPO: https://github.com/kiwi707/shadowrocket
+# UPDATED: 2026-04-01 17:10:00
+# DOMAIN: 5
+# DOMAIN-KEYWORD: 3
+# DOMAIN-SUFFIX: 14
+# TOTAL: 22
 
-# Temu DOMAIN-SUFFIX 规则
-DOMAIN-SUFFIX,temu.com
-DOMAIN-SUFFIX,cdn.temu.com
-DOMAIN-SUFFIX,api.temu.com
-DOMAIN-SUFFIX,img.temu.com
-DOMAIN-SUFFIX,static.temu.com
-DOMAIN-SUFFIX,www.temu.com
-DOMAIN-SUFFIX,shop.temu.com
-DOMAIN-SUFFIX,pay.temu.com
-DOMAIN-SUFFIX,support.temu.com
-DOMAIN-SUFFIX,feedback.temu.com
-DOMAIN-SUFFIX,tracking.temu.com
-DOMAIN-SUFFIX,orders.temu.com
-DOMAIN-SUFFIX,ads.temu.com
-DOMAIN-SUFFIX,email.temu.com
-DOMAIN-SUFFIX,login.temu.com
+# >>> [核心 Web 入口]
+DOMAIN-SUFFIX,gemini.google.com
+DOMAIN-SUFFIX,bard.google.com
+DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepmind.google
+
+# >>> [App 端与后端通讯 API]
+DOMAIN,alkalimining-pa.googleapis.com
+DOMAIN,ia-pa.clients6.google.com
+DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+DOMAIN-SUFFIX,apis.google.com
+DOMAIN-SUFFIX,assistant.google.com
+DOMAIN-SUFFIX,neural.google
+
+# >>> [开发者平台与 API 服务]
+DOMAIN,ai.google.dev
+DOMAIN,makersuite.google.com
+DOMAIN,alkalimakersuite-pa.clients6.google.com
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,generativelanguage.googleapis.com
+DOMAIN-SUFFIX,generativeai.google
+
+# >>> [内容存储与静态资源]
+DOMAIN-SUFFIX,gstatic.com
+DOMAIN-SUFFIX,googleusercontent.com
+DOMAIN-SUFFIX,googlevideo.com
+DOMAIN-SUFFIX,support.google.com
+
+# >>> [关键词匹配]
+DOMAIN-KEYWORD,colab
+DOMAIN-KEYWORD,developerprofiles
+DOMAIN-KEYWORD,generativelanguage
